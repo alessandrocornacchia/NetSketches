@@ -1,0 +1,102 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 37375156
+    name: "MyIngress.ipv4_lpm"
+    alias: "ipv4_lpm"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ipv4.dstAddr"
+    bitwidth: 32
+    match_type: LPM
+  }
+  action_refs {
+    id: 28792405
+  }
+  action_refs {
+    id: 25652968
+  }
+  action_refs {
+    id: 21257015
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 34888219
+    name: "MyIngress.sketch_fragment_table"
+    alias: "sketch_fragment_table"
+  }
+  match_fields {
+    id: 1
+    name: "meta.comb_index"
+    bitwidth: 32
+    match_type: EXACT
+  }
+  action_refs {
+    id: 23006275
+  }
+  action_refs {
+    id: 21257015
+  }
+  size: 1024
+}
+actions {
+  preamble {
+    id: 21257015
+    name: "NoAction"
+    alias: "NoAction"
+    annotations: "@noWarn(\"unused\")"
+  }
+}
+actions {
+  preamble {
+    id: 25652968
+    name: "MyIngress.drop"
+    alias: "drop"
+  }
+}
+actions {
+  preamble {
+    id: 28792405
+    name: "MyIngress.ipv4_forward"
+    alias: "ipv4_forward"
+  }
+  params {
+    id: 1
+    name: "dstAddr"
+    bitwidth: 48
+  }
+  params {
+    id: 2
+    name: "port"
+    bitwidth: 9
+  }
+  params {
+    id: 3
+    name: "basePtr"
+    bitwidth: 4
+  }
+  params {
+    id: 4
+    name: "numComb"
+    bitwidth: 4
+  }
+}
+actions {
+  preamble {
+    id: 23006275
+    name: "MyIngress.select_fragments"
+    alias: "select_fragments"
+  }
+  params {
+    id: 1
+    name: "nmi"
+    bitwidth: 5
+  }
+}
+type_info {
+}
